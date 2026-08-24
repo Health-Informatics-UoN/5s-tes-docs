@@ -1,0 +1,161 @@
+---
+readingTime: PT30M
+audiences: [researcher]
+title: TES Wizard
+docType: tutorial
+---
+
+import { Steps, Callout, Tabs } from "nextra/components";
+import { DocMetadata } from "@/components/doc-metadata/DocMetadata";
+
+<DocMetadata />
+
+# Use the TES Wizard to submit an analysis
+
+## TES Wizard
+
+TES Wizard is a web application built in into the Submission layer that allows you to submit a task to the 5S-TES endpoint.
+
+<Callout>
+  Before using TES Wizard, please make sure that you met the requirements in the [Prerequisites](/tutorials/submit-to-5s-tes#prerequisites) section.
+</Callout>
+
+## Steps to make a submission
+
+Below are the steps to make a submission using the web application.
+
+<Steps>
+
+### Log in to the Submission layer and find the wizards
+
+- As each submission is associated with a project, you make your submissions in the web application by first logging in to the Submission layer and then navigating to the projects view.
+  In the projects view, select a project you are assigned to.
+
+![A screenshot of the web application, highlighting the link to the projects view](/images/submit-tes/project-in-ribbon.png)
+
+- When you are in the project, select the Submissions tab.
+  ![A screenshot of a project, highlighting the link to the submissions](/images/submit-tes/view-of-project.png)
+
+- In the Submissions view, you will be shown a button to make a new submission. Click the `Create Submission` button, and then select the TES wizard to access the Wizard.
+  ![A screenshot of the Submissions view, highlighting the button used for the wizards](/images/submit-tes/submissions-view.png)
+
+### Choose a wizard
+
+<Tabs items={["Simple SQL Query", "Custom Image", "Raw JSON"]}>
+<Tabs.Tab title="Simple SQL Query">
+  The Simple SQL Query TES Wizard mode creates a TES task that executes a [Postgres SQL Runner](https://github.com/SwanseaUniversityMedical/5S-TES-analysis-tools/tree/main/SQLRunnerPostgres) container image. To submit a SQL query TES Task you need to set:
+
+- Name
+- Description _(optional)_
+- TREs to submit to
+- A SQL Query
+
+  <Callout type="info">
+    An example for a SQL query to get the number of records and the total value of the measurement values for the concept "Airway resistance --during inspiration" in the TRE OMOP CDM DB is:
+    ``` copy
+    WITH user_query AS (
+    SELECT value_as_number FROM public.measurement WHERE
+      measurement_concept_id = 21490742
+      AND value_as_number IS NOT NULL
+      )
+    SELECT COUNT(*) AS n, SUM(value_as_number) AS total FROM user_query;
+    ```
+  </Callout>
+
+**Example of the Simple SQL Query TES Wizard mode:**
+<br />
+![sql query wizard](/images/submit-tes/wizard_sqlmode.png) 
+
+</Tabs.Tab>
+
+  <Tabs.Tab title="Custom Image">
+Apart from the mandatory inputs for TES Name and TREs selection, the custom image wizard provides several more options for running tasks.
+
+1. Data input (optional)
+
+If the TREs support it, you can provide a path to download extra data for input.
+
+- **Path**: a textbox to provide the path from which to collect data
+- **Type**: a selection box where you can choose whether your input is a `FILE` or `DIRECTORY`.
+
+2. Data output
+
+You can specify where your output is stored.
+The TRE agent will amend this to comply with egress policy.
+
+- **Path**: a textbox to provide the path to which output data should be sent
+- **Type**: a selection box where you can choose whether your output is a `FILE` or `DIRECTORY`.
+- **URL**: A text box to specify a URL for storing your data.
+
+3. Executors
+
+This section contains details of your [executor(s)](/explanations/concepts/tes#executors).
+
+- **Docker image**: Executors are containers. This textbox allows you to specify which.
+- **Workdir**: The working directory used by this container.
+- **Commands**: A textbox for the commands to pass to the container
+
+4. Environment variables
+
+Some containers will need some environment variables to be passed to them to work. You do not need to specify all of these; for example for many TREs, you will not have database credentials and these will be populated for you.
+
+<Callout type="info">
+
+The commands that you pass here need to be separated by a new line where normally they would be separated by a space on the command-line.
+e.g:
+
+```
+--body-json {"code":"GENERIC","analysis":"DISTRIBUTION","uuid":"123","collection":"test","owner":"me"} --no-encode
+```
+
+becomes
+
+```
+--body-json
+{"code":"GENERIC","analysis":"DISTRIBUTION","uuid":"123","collection":"test","owner":"me"}
+--no-encode
+```
+
+</Callout>
+
+![A screenshot showing the Custom image interface](/images/submit-tes/custom-image-wizard.png)
+
+</Tabs.Tab>
+  <Tabs.Tab title="Raw JSON">
+  The Raw JSON wizard has the simplest interface: a single text box for writing [a TES message](/explanations/concepts/tes#tes-messages-for-5s-tes) as a JSON object.
+  This also includes JSON syntax highlighting and formatting.
+
+
+  <Callout type="info" >
+
+  Specify the Project name and TRE you want to submit to in the "tags". To submit to more than one TRE separate the TRE Names using `|`
+
+  ```json
+  "tags": {
+      "project": "Testing",
+      "tres": "DEMO 01" // or "DEMO TRE 01|DEMO TRE 02"
+  }
+  ```
+
+  </Callout>
+
+  **Example of the Raw JSON TES Wizard mode:**
+
+  ![raw json wizard](/images/submit-tes/wizard_json.png)
+
+</Tabs.Tab>
+
+</Tabs>
+
+### Submit your task
+
+For all the wizards, there is a button at the bottom to submit your task.
+
+![A screenshot of the task submission button](/images/submit-tes/submit-tes-button.png)
+
+Once this is pressed, the task is sent to the submission layer.
+This area will then display your task's progress as it is sent to the TRE agent, then to the TES engine, and when the outputs are being reviewed.
+
+When this is complete, you can [collect your results](collecting-results).
+
+</Steps>

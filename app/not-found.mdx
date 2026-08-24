@@ -1,0 +1,22 @@
+---
+title: Page not found
+description: The page you are looking for does not exist, or it may have been moved or renamed.
+---
+
+import { Cards, Callout } from "nextra/components";
+
+<div className="flex flex-col items-center mt-[100px] h-screen">
+<h1 className="text-4xl font-bold mt-5">Page not found</h1>
+<p className="text-lg">The page you are looking for does not exist, or it may have been moved or renamed.</p>
+<div className="max-w-4xl mx-auto mt-4">
+<Callout type="warning">
+  Documentation for the Patterns and Weaves has been
+  moved to the [new site](https://docs.federated-research.com/).
+</Callout>
+<Cards>
+  <Cards.Card title="Home" href="/" arrow />
+  <Cards.Card title="Five Safes TES" href="/introduction" arrow />
+</Cards>
+
+</div>
+</div>
