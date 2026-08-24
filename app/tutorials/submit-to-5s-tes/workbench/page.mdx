@@ -54,34 +54,38 @@ wb = Workbench()
 
 ### Choose how to validate and pass Workbench configuration
 
-The configuration parameters are required to establish a connection to the TES endpoint, MinIO storage and define which TREs the task will be submitted to.
+**Configuration parameters**
+
+The configuration parameters are required to establish a connection to the TES endpoint, Submission layer storage and define which TREs the task will be submitted to.
 
 | Parameter | Description |
 | --- | --- |
 | project | Project name |
 | tes_base_url | Base URL of the TES service |
-| minio_sts_endpoint | MinIO STS endpoint URL |
-| minio_endpoint | MinIO endpoint URL |
-| minio_output_bucket | MinIO output bucket name |
+| minio_sts_endpoint | Submission layer STS endpoint URL |
+| minio_endpoint | Submission layer endpoint URL |
+| minio_output_bucket | Submission layer output bucket name |
 | tres | List of TRE names to target |
+
+**Validating the configuration**
 
 Depend on how you choose to authenticate yourself to the Submission layer API and pass the configuration values for validation, the first step of using Workbench will be different.
 
-**Authentication methods**
+*Authentication methods*
 
   - **A.** Using your own credentials (recommended, because you don't need to worry about token expiration)
   - **B.** Using an access token (fast, and less parameters to pass, but token may expire before you retrieve the results)
 
-**Passing configuration values methods**
+*Passing configuration values methods*
 
   - **I.** Using a YAML config file (you can reuse the config file for future submissions)
   - **II.** Using direct parameters (you and others can see the parameters you are passing in your notebook)
 
-Choose the tab below that corresponds to your chosen authentication and passing configuration values methods.
+Choose the tab below that corresponds to your chosen authentication and passing configuration values methods, and validate steps will be shown accordingly.
 
 <Tabs items={["A-I: Credentials and YAML config file", "A-II: Credentials and direct parameters", "B-I: Access token and YAML config file", "B-II: Access token and direct parameters"]}>
 <Tabs.Tab title="A-I: Credentials and YAML config file">
-      Add a `config.yml` file to your project folder with the following content:
+      - Add a `config.yml` file to your project folder with the following content:
       ```yaml copy filename="config.yml"
       config:
         project: "your-project-name"
@@ -101,7 +105,7 @@ Choose the tab below that corresponds to your chosen authentication and passing 
         keycloak_url: "http://localhost:your-keycloak-port/"
       ```
 
-      then call the `validate()` method with the following parameters:
+      - Then call the `validate()` method with the following parameters:
       
       ```python copy
         wb.validate(config_path="path/to/config.yml")
@@ -109,7 +113,7 @@ Choose the tab below that corresponds to your chosen authentication and passing 
 
 </Tabs.Tab>
 <Tabs.Tab title="A-II: Credentials and direct parameters">
-      Call the `validate()` method with the following parameters:
+      - Call the `validate()` method with the following parameters:
        ```
         wb.validate(
           project="your-project-name",
@@ -127,7 +131,7 @@ Choose the tab below that corresponds to your chosen authentication and passing 
        ```
 </Tabs.Tab>
 <Tabs.Tab title="B-I: Access token and YAML config file">
-      Add a `config.yml` file to your project folder with the following content:
+      - Add a `config.yml` file to your project folder with the following content:
       ```yaml copy filename="config.yml"
       config:
         project: "your-project-name"
@@ -143,14 +147,14 @@ Choose the tab below that corresponds to your chosen authentication and passing 
         access_token: "your-access-token-here"
       ```
 
-      then call the `validate()` method with the following parameters:
+      - Then call the `validate()` method with the following parameters:
 
       ```python copy
         wb.validate(config_path="path/to/config.yml")
       ```
 </Tabs.Tab>
 <Tabs.Tab title="B-II: Access token and direct parameters">
-      Call the `validate()` method with the following parameters:
+      - Call the `validate()` method with the following parameters:
        ```
         wb.validate(
           project="your-project-name",
