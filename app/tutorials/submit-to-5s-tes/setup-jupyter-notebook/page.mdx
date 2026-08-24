@@ -21,48 +21,11 @@ Once familiar with Jupyter, you can use it to submit a task to the TES endpoint,
 
 ### Install Python
 
-The Workbench requires **Python 3.13 or newer**. Check whether you already have it:
+If you haven't done so, please follow this guide to [install Python](https://realpython.com/installing-python/).
 
-```sh copy
-python3 --version
-```
-
-If the command is not found, or reports a version below 3.13, install it.
-
-<Tabs items={["macOS", "Windows", "Linux"]}>
-<Tabs.Tab title="macOS">
-
-Download the installer from [python.org/downloads](https://www.python.org/downloads/) and run it, or use [Homebrew](https://brew.sh/):
-
-```sh copy
-brew install python@3.13
-```
-
-</Tabs.Tab>
-<Tabs.Tab title="Windows">
-
-Download the installer from [python.org/downloads](https://www.python.org/downloads/).
-
-<Callout type="warning">
-  On the first screen of the installer, tick **Add python.exe to PATH** before
-  clicking Install. Without it, Windows will not find the `python` command in
-  the terminal.
+<Callout type="important">
+  The Workbench requires **Python 3.13 or newer**.
 </Callout>
-
-Use `python` instead of `python3` in the commands below, and run them in **PowerShell**.
-
-</Tabs.Tab>
-<Tabs.Tab title="Linux">
-
-On Debian or Ubuntu:
-
-```sh copy
-sudo apt update
-sudo apt install python3.13 python3.13-venv
-```
-
-</Tabs.Tab>
-</Tabs>
 
 ### Create a project folder
 
@@ -169,11 +132,11 @@ If you see `Workbench ready` underneath the cell, your environment is set up cor
 <Callout type="warning">
   - If this cell raises `ModuleNotFoundError`, JupyterLab is almost certainly
   running against a different Python than the one you installed into. Close it,
-  check your prompt still shows `(my-5s-tes-analysis)`, reinstall with the command in step 4,
-  and start `jupyter lab` again from the same terminal. 
-  
-  - If you already activated the virtual environment, but have the error `command not found: jupyter` 
-  when starting JupyterLab, try step 4 again to re-install JupyterLab.
+  check your prompt still shows `(my-5s-tes-analysis)`, reinstall with the
+  command in step 4, and start `jupyter lab` again from the same terminal. - If
+  you already activated the virtual environment, but have the error `command not
+  found: jupyter` when starting JupyterLab, try step 4 again to re-install
+  JupyterLab.
 </Callout>
 
 </Steps>
