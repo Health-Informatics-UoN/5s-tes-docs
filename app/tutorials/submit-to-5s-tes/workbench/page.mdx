@@ -62,9 +62,6 @@ The configuration parameters are required to establish a connection to the TES e
 | --- | --- |
 | project | Project name |
 | tes_base_url | Base URL of the TES service |
-| minio_sts_endpoint | Submission layer STS endpoint URL |
-| minio_endpoint | Submission layer endpoint URL |
-| minio_output_bucket | Submission layer output bucket name |
 | tres | List of TRE names to target |
 
 **Validating the configuration**
@@ -90,9 +87,6 @@ Choose the tab below that corresponds to your chosen authentication and passing 
       config:
         project: "your-project-name"
         tes_base_url: "http://localhost:5034"
-        minio_sts_endpoint: "http://your-minio-endpoint:9000/sts"
-        minio_endpoint: "your-minio-endpoint:9000"
-        minio_output_bucket: "your-output-bucket-name"
         tres:
           - "Your-TRE1"
           - "Add more TREs as needed"
@@ -118,9 +112,6 @@ Choose the tab below that corresponds to your chosen authentication and passing 
         wb.validate(
           project="your-project-name",
           tes_base_url="http://your-tes-endpoint:5034",
-          minio_sts_endpoint="http://your-minio-endpoint:9000/sts",
-          minio_endpoint="http://your-minio-endpoint:9000",
-          minio_output_bucket="your-output-bucket-name",
           tres=["Your-TRE1"],
           client_id="your-client-id",
           client_secret="your-client-secret",
@@ -136,9 +127,6 @@ Choose the tab below that corresponds to your chosen authentication and passing 
       config:
         project: "your-project-name"
         tes_base_url: "http://localhost:5034"
-        minio_sts_endpoint: "http://your-minio-endpoint:9000/sts"
-        minio_endpoint: "your-minio-endpoint:9000"
-        minio_output_bucket: "your-output-bucket-name"
         tres:
           - "Your-TRE1"
           - "Add more TREs as needed"
@@ -159,9 +147,6 @@ Choose the tab below that corresponds to your chosen authentication and passing 
         wb.validate(
           project="your-project-name",
           tes_base_url="http://your-tes-endpoint:5034",
-          minio_sts_endpoint="http://your-minio-endpoint:9000/sts",
-          minio_endpoint="http://your-minio-endpoint:9000",
-          minio_output_bucket="your-output-bucket-name",
           tres=["Your-TRE1"],
           access_token="your-access-token"
         )
